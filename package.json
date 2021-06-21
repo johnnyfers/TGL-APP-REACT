@@ -10,7 +10,7 @@
     "@types/jest": "^26.0.22",
     "@types/node": "^12.20.7",
     "@types/react": "^17.0.3",
-    "@types/react-dom": "^17.0.3",
+    "@types/react-dom": "^17.0.8",
     "@types/react-router-dom": "^5.1.7",
     "@types/redux": "^3.6.0",
     "@types/styled-components": "^5.1.10",
