@@ -8,3 +8,8 @@ body {
     background-color: rgba(182, 170, 170, 0.158);
     overflow-x: hidden;
 }
+
+button {
+    cursor: pointer;
+    outline: none;
+}
