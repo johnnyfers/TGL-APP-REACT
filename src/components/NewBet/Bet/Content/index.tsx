@@ -28,6 +28,8 @@ export default function NewBetContent() {
     const [gameMinCartValue, setGameMinCartValue] = useState(0)
     const [items, setItems] = useState([])
 
+    const [gameIndex, setGameIndex] = useState(0)
+
     useEffect(() => {
         fetch('http://localhost:3005/types')
             .then(res => res.json())
@@ -50,19 +52,21 @@ export default function NewBetContent() {
         dispatch(newbetActions.addItemToArray(value))
 
         setIsClicked(true)
+        setGameIndex(value)
     }
 
     const buttons = () => {
         let myArray = []
 
         for (let i = 1; i <= gameRange; i++) {
-            myArray.push(<NumberButtons
-                color={isClicked ? `${gameColor}` : 'gray'}
-                onClick={() => selectButtonHandler(i)}
-                key={i}
-                value={i}>
-                {i}
-            </NumberButtons>)
+            myArray.push(
+                <NumberButtons
+                    color={(isClicked && gameIndex === i) ? `${gameColor}` : 'gray'}
+                    onClick={() => selectButtonHandler(i)}
+                    key={i}
+                    value={i}>
+                    {i}
+                </NumberButtons>)
         }
 
         return myArray
