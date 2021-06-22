@@ -13,7 +13,9 @@ import {createSlice} from '@reduxjs/toolkit'
 const newbetSlice = createSlice({
     name: 'newbet',
     initialState: {
-        items: [NaN],
+        items: [0],
+        price: 2.5,
+        type: 'lotofacil',
     },
     reducers: {
         
@@ -23,6 +25,7 @@ const newbetSlice = createSlice({
 
             if(!existingItem){
                 state.items.push(newItem)
+                console.log(state.items.length)
             }
         },
 
@@ -31,7 +34,7 @@ const newbetSlice = createSlice({
         },
 
         completeGame(){
-            
+
         }
 
     }

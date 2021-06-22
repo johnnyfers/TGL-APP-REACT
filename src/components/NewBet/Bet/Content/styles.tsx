@@ -23,3 +23,20 @@ export const SelectGame = styles.button`
     font-size: 12px;
     color: ${props => props.color};
 `
+
+export const NumberButtons = styles.button`
+    background: ${props => props.color};
+    color: white;
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 2px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    margin: 5px;
+`
