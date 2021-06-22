@@ -1,31 +1,30 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-/* type ItemTypes = {
-    type: string
-    description: string
-    range: number
-    price: number
-    color: string
-    'max-number': number
-    'min-cart-value':number
-} */
+type initialItemsType = {
+        items: number[]
+        price: number
+        type: string
+}
+
+const initialState: initialItemsType = {
+    items: [],
+    price: 2.5,
+    type: 'lotofacil'
+}
 
 const newbetSlice = createSlice({
     name: 'newbet',
-    initialState: {
-        items: [0],
-        price: 2.5,
-        type: 'lotofacil',
-    },
+    initialState,
     reducers: {
-        
         addItemToArray(state, action){
-            const newItem: number = action.payload
+            const newItem: number = action.payload.value
+            const maxNumber: number = action.payload.maxNumber
+
             const existingItem = state.items.find((item) => item === newItem)
 
-            if(!existingItem){
+            if(!existingItem && state.items.length < maxNumber){
                 state.items.push(newItem)
-                console.log(state.items.length)
+                console.log(state.items.map((element)=> element))
             }
         },
 

@@ -39,6 +39,8 @@ export default function NewBetContent() {
     }, [])
 
     const gameHandler = (index: number) => {
+        dispatch(newbetActions.clearGame())
+
         setGameName(items[index]['type'])
         setGameDescription(items[index]['description'])
         setGameRange(items[index]['range'])
@@ -48,8 +50,8 @@ export default function NewBetContent() {
         setGameMaxNumber(items[index]['max-number'])
     }
 
-    const selectButtonHandler = (value: number) => {
-        dispatch(newbetActions.addItemToArray(value))
+    const selectButtonHandler = (value: number, maxNumber: number) => {
+        dispatch(newbetActions.addItemToArray({value: value, maxNumber: maxNumber}))
 
         setIsClicked(true)
         setGameIndex(value)
@@ -62,7 +64,7 @@ export default function NewBetContent() {
             myArray.push(
                 <NumberButtons
                     color={(isClicked && gameIndex === i) ? `${gameColor}` : 'gray'}
-                    onClick={() => selectButtonHandler(i)}
+                    onClick={() => selectButtonHandler(i, gameMaxNumber)}
                     key={i}
                     value={i}>
                     {i}
