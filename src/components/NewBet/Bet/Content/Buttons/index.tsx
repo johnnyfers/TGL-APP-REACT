@@ -1,13 +1,15 @@
 import {CartButtons, CompleteOrClearButtons, AddCart} from './styles'
 
-export default function BetButtons(){
+const BetButtons: React.FC<{onClearGame: () => void, onCompleteGame: ()=> void}> = (props) => {
     return (
         <CartButtons>
             <div>
-                <CompleteOrClearButtons>Complete Game</CompleteOrClearButtons>
-                <CompleteOrClearButtons>Clear Game</CompleteOrClearButtons>
+                <CompleteOrClearButtons onClick={props.onCompleteGame}>Complete Game</CompleteOrClearButtons>
+                <CompleteOrClearButtons onClick={props.onClearGame}>Clear Game</CompleteOrClearButtons>
             </div>
             <AddCart>Add To Cart</AddCart>
         </CartButtons>
     )
 }
+
+export default BetButtons

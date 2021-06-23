@@ -32,10 +32,26 @@ const newbetSlice = createSlice({
             state.items = []
         },
 
-        completeGame(){
+        completeGame(state, action){
+            const color: string = action.payload.color
+            const maxNumber: number = action.payload.maxNumber
+            const range: number = action.payload.range
+            const arrayHelper: any[] = action.payload.arrayHelper
+            
+            while(state.items.length < maxNumber){
+                let match = Math.ceil(Math.random() * (range - 0) + 1)
+                
+                arrayHelper.forEach((item) => {
+                    if (match === item.value && !item.getAttribute('clicked')) {
+                        item.setAttribute('clicked', 'true')
+                        item.style.background = `${color}`
+                        state.items.push(item.value)
+                        return state.items
+                    }
+                })
 
+            }
         }
-
     }
 })
 
