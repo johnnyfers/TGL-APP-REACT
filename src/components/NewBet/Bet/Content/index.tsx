@@ -15,10 +15,9 @@ type ItemTypes = {
     'min-cart-value': number
 }
 
-let myArray = []
+let myArray: any[] = []
 
 export default function NewBetContent() {
-    const [isClicked, setIsClicked] = useState(false)
     const dispatch = useDispatch()
     const numberButtonsRef = useRef<HTMLButtonElement>(null)
 
@@ -41,11 +40,11 @@ export default function NewBetContent() {
             })
     }, [])
 
-    const clearGame = ()=> {
+    const clearGame = () => {
         dispatch(newbetActions.clearGame())
     }
 
-    const completeGame = ()=> {
+    const completeGame = () => {
         dispatch(newbetActions.completeGame(1))
     }
 
@@ -60,14 +59,10 @@ export default function NewBetContent() {
         setGameMinCartValue(items[index]['min-cart-value'])
         setGameMaxNumber(items[index]['max-number'])
     }
-    
 
-    const selectButtonHandler = (value: number, maxNumber: number) => {
-        dispatch(newbetActions.addItemToArray({value: value, maxNumber: maxNumber}))
+    const selectButtonHandler = (value: number, maxNumber: number, gamePrice: number, gameName: string, gameColor: string) => {
+        dispatch(newbetActions.addItemToArray({ value, maxNumber, gamePrice, gameName }))
 
-        console.log(numberButtonsRef)
-        setIsClicked(true)
-        setGameIndex(value)
     }
 
     const buttons = () => {
@@ -77,14 +72,14 @@ export default function NewBetContent() {
             myArray.push(
                 <NumberButtons
                     ref={numberButtonsRef}
-                    color={(isClicked && gameIndex === i) ? `${gameColor}` : 'gray'}
-                    onClick={() => selectButtonHandler(i, gameMaxNumber)}
+                    color={'gray'}
+                    onClick={() => selectButtonHandler(i, gameMaxNumber, gamePrice, gameName, gameColor)}
                     key={i}
                     value={i}>
-                    {i}
-                </NumberButtons>)
+                    {i < 10 ? `0${i}` : i}
+                </NumberButtons>
+            )
         }
-        console.log(myArray)
 
         return myArray
     }
@@ -104,12 +99,10 @@ export default function NewBetContent() {
             <p>{items && gameDescription}</p>
 
             <Numbers>
-                {
-                    items && buttons()
-                }
+                {items && buttons()}
             </Numbers>
 
-            <BetButtons onCompleteGame={completeGame} onClearGame={clearGame}/>
+            <BetButtons onCompleteGame={completeGame} onClearGame={clearGame} />
         </>
     )
 }

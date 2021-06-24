@@ -1,10 +1,14 @@
+import Apresentation from '../components/Apresentation'
+import LoginForm from '../components/AuthForms/Login'
+import {Container} from '../components/UI/Auth/index'
 
 export default function Login() {
 
     return (
-        <h1>
-            login
-        </h1>
+        <Container>
+            <Apresentation/>
+            <LoginForm></LoginForm>
+        </Container>
     )
 
 }

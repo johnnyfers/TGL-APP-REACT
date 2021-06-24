@@ -7,6 +7,7 @@ const BetButtons: React.FC<{onClearGame: () => void, onCompleteGame: ()=> void}>
                 <CompleteOrClearButtons onClick={props.onCompleteGame}>Complete Game</CompleteOrClearButtons>
                 <CompleteOrClearButtons onClick={props.onClearGame}>Clear Game</CompleteOrClearButtons>
             </div>
+            
             <AddCart>Add To Cart</AddCart>
         </CartButtons>
     )

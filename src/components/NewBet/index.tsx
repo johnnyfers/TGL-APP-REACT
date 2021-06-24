@@ -1,6 +1,6 @@
 import Layout from "../UI/Layout";
 import NewBetContent from "./Bet/Content";
-import Cart from "./Cart";
+import Cart from "./Bet/Cart";
 import { Card1, Card2 } from "./styles";
 
 export default function NewBetContainer(){
