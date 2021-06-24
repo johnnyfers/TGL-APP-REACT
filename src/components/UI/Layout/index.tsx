@@ -7,4 +7,5 @@ const Layout = styles.div`
     padding-left: 100px;
     padding-right: 100px;
 `
+
 export default Layout

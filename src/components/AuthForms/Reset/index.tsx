@@ -1,4 +1,5 @@
 import { Section, HelperDiv, Form, Input, InputButton, BackButton } from '../../UI/Auth/index'
+import { Link } from 'react-router-dom'
 
 export default function ResetForm() {
     return (
@@ -15,7 +16,12 @@ export default function ResetForm() {
                 <InputButton><i>Send Link</i></InputButton>
             </Form>
 
-            <BackButton><i>Back</i></BackButton>
+            
+            <Link style={{ textDecoration: 'none' }} to='/login'>
+                <BackButton>
+                    <i>Back</i>
+                </BackButton>
+            </Link>
 
         </Section>)
 }

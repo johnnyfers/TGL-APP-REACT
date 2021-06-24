@@ -1,4 +1,4 @@
-import Apresentation from '../components/Apresentation'
+import Apresentation from '../components/AuthForms/Apresentation'
 import LoginForm from '../components/AuthForms/Login'
 import {Container} from '../components/UI/Auth/index'
 

@@ -1,6 +1,6 @@
 import { H2, H1, GreenStuff } from "./styles";
 
-import { Section, HelperDiv } from "../UI/Auth/index"
+import { Section, HelperDiv } from "../../UI/Auth/index"
 
 export default function Apresentation(){
     return (
