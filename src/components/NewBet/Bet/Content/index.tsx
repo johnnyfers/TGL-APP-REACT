@@ -2,7 +2,7 @@ import BetButtons from './Buttons'
 import { H1, Strong, Numbers, SelectGame, NumberButtons } from './styles'
 import { useEffect, useRef, useState } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { newbetActions } from '../../../../store/newbet-slice'
 
 type ItemTypes = {
@@ -17,9 +17,18 @@ type ItemTypes = {
 
 let myArray: any[] = []
 
+interface RootState {
+    newBet: {
+        items: number[],
+        color: string
+    }
+}
+
 export default function NewBetContent() {
+    let myItems: number[] = useSelector((state: RootState) => state.newBet.items)
+    let myColor: string = useSelector((state: RootState) => state.newBet.color)
+
     const dispatch = useDispatch()
-    const numberButtonsRef = useRef<HTMLButtonElement>(null)
 
     const [gameDescription, setGameDescription] = useState('')
     const [gameName, setGameName] = useState('')
@@ -45,7 +54,7 @@ export default function NewBetContent() {
     }
 
     const completeGame = (maxNumber: number, range: number) => {
-        dispatch(newbetActions.completeGame({maxNumber, range}))
+        dispatch(newbetActions.completeGame({ maxNumber, range }))
     }
 
     const gameHandler = (index: number) => {
@@ -62,7 +71,8 @@ export default function NewBetContent() {
 
     const selectButtonHandler = (value: number, maxNumber: number, gamePrice: number, gameName: string, gameColor: string) => {
         dispatch(newbetActions.addItemToArray({ value, maxNumber, gamePrice, gameName }))
-        
+
+        console.log(myItems)
     }
 
     const buttons = () => {
@@ -71,8 +81,7 @@ export default function NewBetContent() {
         for (let i = 1; i <= gameRange; i++) {
             myArray.push(
                 <NumberButtons
-                    ref={numberButtonsRef}
-                    color={'gray'}
+                    color={!myItems.indexOf(i) ? gameColor : 'gray'}
                     onClick={() => selectButtonHandler(i, gameMaxNumber, gamePrice, gameName, gameColor)}
                     key={i}
                     value={i}>
@@ -102,7 +111,7 @@ export default function NewBetContent() {
                 {items && buttons()}
             </Numbers>
 
-            <BetButtons onCompleteGame={()=> completeGame(gameMaxNumber, gameRange)} onClearGame={clearGame} />
+            <BetButtons onCompleteGame={() => completeGame(gameMaxNumber, gameRange)} onClearGame={clearGame} />
         </>
     )
 }

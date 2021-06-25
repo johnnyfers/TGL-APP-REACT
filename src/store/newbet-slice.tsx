@@ -13,7 +13,7 @@ const initialState: ItemsType = {
 }
 
 const newbetSlice = createSlice({
-    name: 'newbet',
+    name: 'newBet',
     initialState,
     reducers: {
         addItemToArray(state, action) {
