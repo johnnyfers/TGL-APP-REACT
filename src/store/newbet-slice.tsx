@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-type initialItemsType = {
+type ItemsType = {
     items: number[]
     price: number
     type: string
 }
 
-const initialState: initialItemsType = {
+const initialState: ItemsType = {
     items: [],
     price: 0,
     type: ''
@@ -26,6 +26,10 @@ const newbetSlice = createSlice({
 
             if (!existingItem && state.items.length < maxNumber) {
                 state.items.push(newItem)
+                console.log(state.items.map((element) => element))
+            }
+            if (existingItem) {
+                state.items.splice( state.items.indexOf(newItem), 1)
                 console.log(state.items.map((element) => element))
             }
 
@@ -49,18 +53,16 @@ const newbetSlice = createSlice({
             const arrayHelper: any[] = action.payload.arrayHelper
 
             while (state.items.length < maxNumber) {
-                let match = Math.ceil(Math.random() * (range - 0) + 1)
+                let newItem = Math.ceil(Math.random() * (range - 0) + 1)
+                const match = state.items.find((item) => item === newItem)
 
-                arrayHelper.forEach((item) => {
-                    if (match === item.value && !item.getAttribute('clicked')) {
-                        item.setAttribute('clicked', 'true')
-                        item.style.background = `${color}`
-                        state.items.push(item.value)
-                        return state.items
-                    }
-                })
+                if(!match){
+                    state.items.push(newItem)
+                }
 
             }
+
+            console.log(state.items.map((element) => element))
         }
     }
 })

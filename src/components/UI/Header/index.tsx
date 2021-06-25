@@ -1,12 +1,12 @@
 import { Header, Li, Ul, Title, Home } from './styles'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const MainHeader = () => {
     return (
         <Header>
             <Ul>
                 <Li><Title>TLG</Title></Li>
-                <Li><Home>Home</Home></Li>
+                <Link to='/games'> <Li><Home>Home</Home></Li></Link>
             </Ul>
 
             <Ul>

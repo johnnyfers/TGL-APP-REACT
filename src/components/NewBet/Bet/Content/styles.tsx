@@ -22,6 +22,12 @@ export const SelectGame = styles.button`
     margin-right: 30px;
     font-size: 12px;
     color: ${props => props.color};
+    
+    &:hover{
+        background: ${props => props.color};
+        color: white;
+        transition: 0.3s;
+    }
 `
 
 export const NumberButtons = styles.button`

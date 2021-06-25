@@ -44,8 +44,8 @@ export default function NewBetContent() {
         dispatch(newbetActions.clearGame())
     }
 
-    const completeGame = () => {
-        dispatch(newbetActions.completeGame(1))
+    const completeGame = (maxNumber: number, range: number) => {
+        dispatch(newbetActions.completeGame({maxNumber, range}))
     }
 
     const gameHandler = (index: number) => {
@@ -62,7 +62,7 @@ export default function NewBetContent() {
 
     const selectButtonHandler = (value: number, maxNumber: number, gamePrice: number, gameName: string, gameColor: string) => {
         dispatch(newbetActions.addItemToArray({ value, maxNumber, gamePrice, gameName }))
-
+        
     }
 
     const buttons = () => {
@@ -102,7 +102,7 @@ export default function NewBetContent() {
                 {items && buttons()}
             </Numbers>
 
-            <BetButtons onCompleteGame={completeGame} onClearGame={clearGame} />
+            <BetButtons onCompleteGame={()=> completeGame(gameMaxNumber, gameRange)} onClearGame={clearGame} />
         </>
     )
 }
