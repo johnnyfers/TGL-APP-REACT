@@ -1,6 +1,6 @@
 import BetButtons from './Buttons'
 import { H1, Strong, Numbers, SelectGame, NumberButtons } from './styles'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { newbetActions } from '../../../../store/newbet-slice'
@@ -54,6 +54,10 @@ export default function NewBetContent() {
     }
 
     const completeGame = (maxNumber: number, range: number) => {
+        if(myItems.length === maxNumber){
+            clearGame()
+            dispatch(newbetActions.completeGame({ maxNumber, range }))
+        }
         dispatch(newbetActions.completeGame({ maxNumber, range }))
     }
 
@@ -81,7 +85,7 @@ export default function NewBetContent() {
         for (let i = 1; i <= gameRange; i++) {
             myArray.push(
                 <NumberButtons
-                    color={!myItems.indexOf(i) ? gameColor : 'gray'}
+                    color={myItems.find(item => item === i) ? gameColor : 'gray'}
                     onClick={() => selectButtonHandler(i, gameMaxNumber, gamePrice, gameName, gameColor)}
                     key={i}
                     value={i}>
