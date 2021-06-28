@@ -24,18 +24,16 @@ interface RootState {
         color: string
     },
     cart: {
-        cartItem: [{}]
+        cartItem: {}[]
     }
 }
 
 export default function NewBetContent() {
     let myItems: number[] = useSelector((state: RootState) => state.newBet.items)
-    let myColor: string = useSelector((state: RootState) => state.newBet.color)
-
-    let cartItem: [{}] = useSelector((state: RootState) => state.cart.cartItem)
 
     const dispatch = useDispatch()
 
+    const [isInitial, setInitial] = useState(false)
     const [gameDescription, setGameDescription] = useState('')
     const [gameName, setGameName] = useState('')
     const [gameRange, setGameRange] = useState(0)
@@ -45,15 +43,13 @@ export default function NewBetContent() {
     const [gameMinCartValue, setGameMinCartValue] = useState(0)
     const [items, setItems] = useState([])
 
-    const [gameIndex, setGameIndex] = useState(0)
-
     useEffect(() => {
         fetch('http://localhost:3005/types')
             .then(res => res.json())
             .then(data => {
                 setItems(data)
             })
-        dispatch(cartActions.cleatInitialState())
+            setInitial(true)
     }, [dispatch])
 
     const clearGame = () => {
@@ -61,7 +57,7 @@ export default function NewBetContent() {
     }
 
     const completeGame = (maxNumber: number, range: number) => {
-        if(myItems.length === maxNumber){
+        if (myItems.length === maxNumber) {
             clearGame()
             dispatch(newbetActions.completeGame({ maxNumber, range }))
         }
@@ -82,8 +78,6 @@ export default function NewBetContent() {
 
     const selectButtonHandler = (value: number, maxNumber: number, gamePrice: number, gameName: string, gameColor: string) => {
         dispatch(newbetActions.addItemToArray({ value, maxNumber, gamePrice, gameName }))
-
-        console.log(myItems)
     }
 
     const buttons = () => {
@@ -104,12 +98,21 @@ export default function NewBetContent() {
         return myArray
     }
 
-    const addToCart = (numbersGame: number[], gamePrice: number, gameName: string, color: string, maxNumber: number)=>{
-        dispatch(cartActions.receiveDataFromNewBEt({numbersGame, gamePrice, gameName, color, maxNumber}))
-        
-        console.log(cartItem)
+    const addToCart = (numbersGame: number[], gamePrice: number, gameName: string, color: string, maxNumber: number) => {
+        if (numbersGame.length !== maxNumber) {
+            return alert('Preencha todos os numeros referente ao jogo')
+        }
+
+        dispatch(cartActions.receiveDataFromNewBEt({ numbersGame, gamePrice, gameName, color }))
+
         clearGame()
     }
+    
+    useEffect(()=>{
+        if(items.length){
+            gameHandler(0)
+        }
+    },[items])
 
     return (
         <>
@@ -129,7 +132,7 @@ export default function NewBetContent() {
                 {items && buttons()}
             </Numbers>
 
-            <BetButtons onAddToCart={()=> addToCart(myItems, gamePrice, gameName, gameColor, gameMaxNumber)} onCompleteGame={() => completeGame(gameMaxNumber, gameRange)} onClearGame={clearGame} />
+            <BetButtons onAddToCart={() => addToCart(myItems, gamePrice, gameName, gameColor, gameMaxNumber)} onCompleteGame={() => completeGame(gameMaxNumber, gameRange)} onClearGame={clearGame} />
         </>
     )
 }

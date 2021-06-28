@@ -1,16 +1,17 @@
 import { EmptyCart, H2, Strong, Save, DivInsideCart, SideCartDiv, DivClassSpan, SpanNameGame, SpanDelete } from "./styles";
 import { useDispatch, useSelector } from 'react-redux'
 import { cartActions } from '../../../../store/cart-slice'
+import { gamesActions } from "../../../../store/games-slice";
 
 interface RootState {
     cart: {
-        cartItem: [{
+        cartItem: {
             id: string
             items: number[]
             price: number
             type: string
             color: string
-        }],
+        }[],
         totalPrice: number
     }
 }
@@ -18,18 +19,27 @@ interface RootState {
 export default function Cart() {
     const dispatch = useDispatch()
 
-    let cartItem: [{
+    let cartItem: {
         id: string
         items: number[]
         price: number
         type: string
         color: string
-    }] = useSelector((state: RootState) => state.cart.cartItem)
+    }[] = useSelector((state: RootState) => state.cart.cartItem)
 
     let totalPrice: number = useSelector((state: RootState) => state.cart.totalPrice)
 
     const deleteRow = (id: string, price: number) => {
         dispatch(cartActions.deleteItemFromCart({ id, price }))
+    }
+
+    const saveGame = (game: {}[]) => {
+        if(totalPrice < 30){
+            return alert('O valor minimo é de 30 reais')
+        }
+        
+        dispatch(gamesActions.receiveDataFromCart({game}))
+        dispatch(cartActions.clearCart())
     }
 
     return (
@@ -56,7 +66,6 @@ export default function Cart() {
                                 <span>{item.price.toFixed(2).replace('.', ',')}</span>
                             </DivClassSpan>
                         </SideCartDiv>
-
                     </DivInsideCart>)
                 }
             </div>
@@ -69,7 +78,7 @@ export default function Cart() {
                 <Strong> CART </Strong>  TOTAL: R$ <span>{totalPrice}</span>
             </H2>
 
-            <Save>SAVE</Save>
+            <Save onClick={(): void => saveGame(cartItem)}>SAVE</Save>
         </>
     )
 }

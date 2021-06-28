@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { SelectGame } from "../NewBet/Bet/Content/styles";
 import Layout from "../UI/Layout";
@@ -14,8 +15,15 @@ type ItemTypes = {
     'min-cart-value': number
 }
 
+interface RootState {
+    games: {
+        cartItem: {}[]
+    }
+}
+
 export default function GamesPage() {
     const [items, setItems] = useState([])
+    const gameItems: {}[] = useSelector((state: RootState) => state.games.cartItem)
 
     useEffect(() => {
         fetch('http://localhost:3005/types')
@@ -25,12 +33,16 @@ export default function GamesPage() {
             })
     }, [])
 
+    const showRecentGames = ()=> {
+        console.log(gameItems)
+    }
+
     return (
         <Layout>
             <CardGame>
                 <RecentGames>
                     <DivHelper>
-                        <h2>Recent Games</h2>
+                        <h2 onClick={(): void => showRecentGames()}>Recent Games</h2>
                         <Span>filters</Span>
                         <div>
                             {items && items.map((item: ItemTypes, index: number) =>
@@ -49,6 +61,11 @@ export default function GamesPage() {
                         New Bet
                     </Link>
                 </RecentGames>
+                <ul>
+                    {/* {gameItems && gameItems.map((item) =>
+                        <li>{item}</li>
+                    )} */}
+                </ul>
             </CardGame>
         </Layout>
     )
