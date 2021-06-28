@@ -1,6 +1,6 @@
 import {CartButtons, CompleteOrClearButtons, AddCart} from './styles'
 
-const BetButtons: React.FC<{onClearGame: () => void, onCompleteGame: ()=> void}> = (props) => {
+const BetButtons: React.FC<{onClearGame: () => void, onCompleteGame: ()=> void, onAddToCart: ()=> void}> = (props) => {
     return (
         <CartButtons>
             <div>
@@ -8,7 +8,7 @@ const BetButtons: React.FC<{onClearGame: () => void, onCompleteGame: ()=> void}>
                 <CompleteOrClearButtons onClick={props.onClearGame}>Clear Game</CompleteOrClearButtons>
             </div>
             
-            <AddCart>Add To Cart</AddCart>
+            <AddCart onClick={props.onAddToCart}>Add To Cart</AddCart>
         </CartButtons>
     )
 }

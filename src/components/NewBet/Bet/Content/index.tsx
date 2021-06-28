@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { newbetActions } from '../../../../store/newbet-slice'
+import { cartActions } from '../../../../store/cart-slice'
 
 type ItemTypes = {
     type: string
@@ -21,12 +22,17 @@ interface RootState {
     newBet: {
         items: number[],
         color: string
+    },
+    cart: {
+        cartItem: [{}]
     }
 }
 
 export default function NewBetContent() {
     let myItems: number[] = useSelector((state: RootState) => state.newBet.items)
     let myColor: string = useSelector((state: RootState) => state.newBet.color)
+
+    let cartItem: [{}] = useSelector((state: RootState) => state.cart.cartItem)
 
     const dispatch = useDispatch()
 
@@ -47,7 +53,8 @@ export default function NewBetContent() {
             .then(data => {
                 setItems(data)
             })
-    }, [])
+        dispatch(cartActions.cleatInitialState())
+    }, [dispatch])
 
     const clearGame = () => {
         dispatch(newbetActions.clearGame())
@@ -97,6 +104,13 @@ export default function NewBetContent() {
         return myArray
     }
 
+    const addToCart = (numbersGame: number[], gamePrice: number, gameName: string, color: string, maxNumber: number)=>{
+        dispatch(cartActions.receiveDataFromNewBEt({numbersGame, gamePrice, gameName, color, maxNumber}))
+        
+        console.log(cartItem)
+        clearGame()
+    }
+
     return (
         <>
             <H1><Strong>NEW BET</Strong> FOR <span>{items && gameName}</span></H1>
@@ -115,7 +129,7 @@ export default function NewBetContent() {
                 {items && buttons()}
             </Numbers>
 
-            <BetButtons onCompleteGame={() => completeGame(gameMaxNumber, gameRange)} onClearGame={clearGame} />
+            <BetButtons onAddToCart={()=> addToCart(myItems, gamePrice, gameName, gameColor, gameMaxNumber)} onCompleteGame={() => completeGame(gameMaxNumber, gameRange)} onClearGame={clearGame} />
         </>
     )
 }
