@@ -7,6 +7,7 @@ type ItemsType = {
         price: number
         type: string
         color: string
+        dateString: string
     }[],
     totalPrice: number
 }
@@ -27,6 +28,9 @@ const cartSlice = createSlice({
             const color: string = action.payload.color
 
             let id = Math.random().toString()
+            
+            let date = new Date();
+            let dateString = date.getDate() +  "/0" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
             state.totalPrice += price
 
@@ -35,10 +39,9 @@ const cartSlice = createSlice({
                 items: numbersGame,
                 price: price,
                 type: name,
-                color: color
+                color: color,
+                dateString: dateString
             })
-
-
         },
 
         deleteItemFromCart(state, action) {

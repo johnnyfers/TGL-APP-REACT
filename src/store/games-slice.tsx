@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 type ItemsType = {
-    cartItem: {
-        game: {}[],
-        dateString: string
-    }[]
+    cartItem: {}[],
+    cartItemFiltered: {}[]
 }
 
 const initialState: ItemsType = {
-    cartItem: []
+    cartItem: [],
+    cartItemFiltered: []
 }
 
 const gamesSlice = createSlice({
@@ -18,10 +17,13 @@ const gamesSlice = createSlice({
         receiveDataFromCart(state, action) {
             const game: {}[] = action.payload.game
             
-            let date = new Date();
-            let dateString = date.getDate() +  "/0" + (date.getMonth() + 1) + "/" + date.getFullYear();
+            state.cartItem.push({game})
+        },
+        
+        filterGames(state, action){
+            const gameType: string = action.payload.gameType
 
-            state.cartItem.push({game, dateString})
+            state.cartItemFiltered = state.cartItem.filter((item: any)=> item.filter((item: any)=> item.type === gameType))
         }
     }
 })
