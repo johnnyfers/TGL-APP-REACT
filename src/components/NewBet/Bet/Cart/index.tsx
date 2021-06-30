@@ -34,9 +34,9 @@ export default function Cart() {
     }
 
     const saveGame = (game: {}[]) => {
-        /* if(totalPrice < 30){
+        if(totalPrice < 30){
             return alert('O valor minimo é de 30 reais')
-        } */
+        }
         
         dispatch(gamesActions.receiveDataFromCart({game}))
         dispatch(cartActions.clearCart())
