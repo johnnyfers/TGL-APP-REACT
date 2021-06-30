@@ -86,7 +86,7 @@ export default function GamesPage() {
                                 </Li>
                                 <Li color={item2.color}>{item2.type}</Li>
                             </UlGameItem>)
-                    )
+                        )
                     }
                 </div>
             </CardGame>

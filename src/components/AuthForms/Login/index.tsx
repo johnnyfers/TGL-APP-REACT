@@ -26,6 +26,10 @@ export default function LoginForm() {
         let enteredEmail = emailInputRef.current?.value
         let enteredPassword = passwordInputRef.current?.value
 
+        if(!enteredEmail && !enteredPassword){
+            return alert('preencha todos os campos')
+        }
+
         dispatch(authActions.login({email: enteredEmail, password: enteredPassword}))
 
         if(isLogged){

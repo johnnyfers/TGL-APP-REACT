@@ -40,6 +40,8 @@ export default function Cart() {
         
         dispatch(gamesActions.receiveDataFromCart({game}))
         dispatch(cartActions.clearCart())
+
+        alert('jogo salvo com sucesso')
     }
 
     return (

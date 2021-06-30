@@ -1,17 +1,36 @@
 import { Section, HelperDiv, Form, Input, InputButton, BackButton } from '../../UI/Auth/index'
 import { Link } from 'react-router-dom'
+import { useRef } from 'react'
+import { useDispatch } from 'react-redux'
+import { authActions } from '../../../store/auth-slice'
 
 export default function ResetForm() {
+    const dispatch = useDispatch()
+    const emailInputRef = useRef<HTMLInputElement>(null)
+
+    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+
+        let enteredEmail = emailInputRef.current?.value
+
+        if(!enteredEmail){
+            return alert('por favor digite o email')
+        }
+
+        dispatch(authActions.validateEmail({email: enteredEmail}))
+    }
+
     return (
         <Section>
             <HelperDiv>
                 <h2><i>Registration</i></h2>
             </HelperDiv>
 
-            <Form>
+            <Form onSubmit={submitHandler}>
                 <Input
-                    type='text'
+                    type='email'
                     placeholder='Email'
+                    ref={emailInputRef}
                 />
                 <InputButton><i>Send Link</i></InputButton>
             </Form>

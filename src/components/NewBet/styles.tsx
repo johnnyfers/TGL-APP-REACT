@@ -7,6 +7,12 @@ export const Card1 = styles.section`
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+
+    @media (max-width: 500px){
+        text-align: center;
+        align-self: center;
+        width: 20rem;
+    }
 `
 export const Card2 = styles.section`
     width: 25%;
@@ -18,4 +24,11 @@ export const Card2 = styles.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    @media (max-width: 500px){
+        margin-top: 2rem;
+        align-self: center;
+        width: 20rem;
+        padding: 0.5rem;
+    }
 `

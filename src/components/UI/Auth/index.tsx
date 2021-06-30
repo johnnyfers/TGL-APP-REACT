@@ -7,6 +7,7 @@ export const Container = styles.div`
     justify-content: space-around;
 
     @media (max-width: 400px){
+        margin-top: 0;
         flex-direction: column;
     }
 `
@@ -32,6 +33,10 @@ export const Form = styles.form`
     padding: 1rem 0rem 1rem 0rem;
     width: 18rem;
     background: white;
+
+    @media (max-width: 400px){
+        align-self: center;
+    }
 `
 
 export const Input = styles.input`

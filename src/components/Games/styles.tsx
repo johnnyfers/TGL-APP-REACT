@@ -6,6 +6,13 @@ export const CardGame = styles.section`
     box-sizing: border-box;
     display: flex;
     margin-bottom: 20px;
+
+    @media (max-width: 500px){
+        margin-left: -4rem;
+        flex-direction: column;
+        width: 20rem;
+        justify-content: center;
+    }
 `
 
 export const Card2 = styles.section`
@@ -21,11 +28,20 @@ export const RecentGames = styles.div`
     box-sizing: border-box;
     align-items: center;
     justify-content: space-around;
+
+    @media (max-width: 500px){
+        margin-bottom: 1rem;
+        flex-direction: column;
+        width: 20rem;
+        justify-content: center;
+        text-align: center;
+    }
 `
 
 export const Span = styles.span`
     margin-right: 1rem;
     margin-left: 1rem;
+    margin-bottom: 1rem;
 `
 
 export const DivHelper = styles.div`
@@ -33,6 +49,13 @@ export const DivHelper = styles.div`
     width: 70%;
     box-sizing: border-box;
     align-items: center;
+
+    @media (max-width: 500px){
+        margin-bottom: 1rem;
+        flex-direction: column;
+        width: 20rem;
+        justify-content: center;
+    }
 `
 
 export const UlGameItem = styles.ul`

@@ -43,6 +43,16 @@ const authSlice = createSlice({
             localStorage.removeItem('email')
             localStorage.removeItem("password");
         },
+
+        validateEmail: (state, action) => {
+            let email: string = action.payload.email
+
+            if(email === localStorage.getItem('email')){
+                alert('sua senha sera redefinida')
+            } else{
+                alert('email invalido')
+            }
+        }
     }
 })
 

@@ -7,5 +7,10 @@ const Layout = styles.div`
     box-sizing: border-box;
     padding-left: 100px;
     padding-right: 100px;
+
+    @media (max-width: 500px){
+        margin: 0;
+        flex-direction: column;
+    }
 `
 export default Layout

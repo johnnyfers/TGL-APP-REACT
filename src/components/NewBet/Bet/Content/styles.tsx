@@ -28,6 +28,12 @@ export const SelectGame = styles.button`
         color: white;
         transition: 0.3s;
     }
+
+    @media (max-width: 500px){
+        align-self: center;
+        width: 20rem;
+        margin-bottom: 0.5rem;
+    }
 `
 
 export const NumberButtons = styles.button`
