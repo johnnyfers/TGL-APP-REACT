@@ -75,7 +75,7 @@ export default function Cart() {
             </EmptyCart>
 
             <H2>
-                <Strong> CART </Strong>  TOTAL: R$ <span>{totalPrice}</span>
+                <Strong> CART </Strong>  TOTAL: R$ <span>{totalPrice.toFixed(2).replace('.', ',')}</span>
             </H2>
 
             <Save onClick={(): void => saveGame(cartItem)}>SAVE</Save>

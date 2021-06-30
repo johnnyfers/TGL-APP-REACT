@@ -33,12 +33,14 @@ export default function NewBetContent() {
 
     const dispatch = useDispatch()
 
+    const [isInitial, setInitial] = useState(false)
     const [gameDescription, setGameDescription] = useState('')
     const [gameName, setGameName] = useState('')
     const [gameRange, setGameRange] = useState(0)
     const [gamePrice, setGamePrice] = useState(0)
     const [gameColor, setGameColor] = useState('')
     const [gameMaxNumber, setGameMaxNumber] = useState(0)
+    const [gameMinCartValue, setGameMinCartValue] = useState(0)
     const [items, setItems] = useState([])
 
     useEffect(() => {
@@ -47,6 +49,7 @@ export default function NewBetContent() {
             .then(data => {
                 setItems(data)
             })
+            setInitial(true)
     }, [dispatch])
 
     const clearGame = () => {
@@ -69,6 +72,7 @@ export default function NewBetContent() {
         setGameRange(items[index]['range'])
         setGamePrice(items[index]['price'])
         setGameColor(items[index]['color'])
+        setGameMinCartValue(items[index]['min-cart-value'])
         setGameMaxNumber(items[index]['max-number'])
     }
 

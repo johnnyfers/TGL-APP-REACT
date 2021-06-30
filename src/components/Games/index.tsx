@@ -39,8 +39,7 @@ export default function GamesPage() {
     }, [])
 
     const filterGames = (gameType: string) => {
-        dispatch(gamesActions.filterGames({gameType}))
-        console.log(cartItemFiltered)
+        dispatch(gamesActions.filterGames({ gameType }))
     }
 
     return (
@@ -62,7 +61,7 @@ export default function GamesPage() {
                             textDecoration: 'none',
                             color: 'green',
                             fontWeight: 'bold',
-                            fontSize: '2rem;'
+                            fontSize: '1.5rem'
                         }}>
                         New Bet
                     </Link>
@@ -77,18 +76,17 @@ export default function GamesPage() {
                             </UlGameItem>
                         )
                     )}
-                    {
-                        cartItemFiltered && cartItemFiltered.map((item: any)=>
-                            item.map((item2: any, index: number)=> 
+                    {cartItemFiltered.length > 0 && cartItemFiltered.map((item: any) =>
+                        item.map((item2: any, index: number) =>
                             <UlGameItem key={index} color={item2.color}>
                                 <Li>{item2.items.join(', ')}</Li>
                                 <Li>
-                                    <SpanInsideLi>{item2.dateString}</SpanInsideLi> 
+                                    <SpanInsideLi>{item2.dateString}</SpanInsideLi>
                                     <SpanInsideLi> - (R${item2.price.toFixed(2).replace('.', ',')})</SpanInsideLi>
                                 </Li>
                                 <Li color={item2.color}>{item2.type}</Li>
                             </UlGameItem>)
-                        )
+                    )
                     }
                 </div>
             </CardGame>

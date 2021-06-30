@@ -7,6 +7,7 @@ body {
     flex-direction: column;
     background-color: rgba(182, 170, 170, 0.37);
     overflow-x: hidden;
+    font-style: italic;
 }
 
 button {
