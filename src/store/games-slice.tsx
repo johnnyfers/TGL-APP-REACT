@@ -23,7 +23,7 @@ const gamesSlice = createSlice({
         filterGames(state, action){
             const gameType: string = action.payload.gameType
 
-            state.cartItemFiltered = state.cartItem.map((item: any)=> item.game.filter((item2: any)=> item2.type === gameType))
+            state.cartItemFiltered = state.cartItem.map((item: any)=> item.game.filter((gameSelected: any)=> gameSelected.type === gameType))
         },
 
         clearFilter(state){

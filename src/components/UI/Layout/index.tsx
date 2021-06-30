@@ -1,6 +1,7 @@
 import styles from 'styled-components'
 
 const Layout = styles.div`
+    margin-top: 2rem;
     display: flex;
     justify-content: space-around;
     box-sizing: border-box;
