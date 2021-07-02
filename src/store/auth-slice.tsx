@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 
 type LoginTypes = {
     users: {}[],
@@ -48,9 +49,17 @@ const authSlice = createSlice({
             let email: string = action.payload.email
 
             if(email === localStorage.getItem('email')){
-                alert('sua senha sera redefinida')
+                Swal.fire(
+                    'Senha redefinida!',
+                    'Sua senha foi redefinida',
+                    'success'
+                  )
             } else{
-                alert('email invalido')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Email não existe!',
+                })
             }
         }
     }

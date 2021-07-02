@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { newbetActions } from '../../../../store/newbet-slice'
 import { cartActions } from '../../../../store/cart-slice'
+import Swal from 'sweetalert2'
 
 declare module 'react' {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
@@ -107,7 +108,11 @@ export default function NewBetContent() {
 
     const addToCart = (numbersGame: number[], gamePrice: number, gameName: string, color: string, maxNumber: number) => {
         if (numbersGame.length !== maxNumber) {
-            return alert('Preencha todos os numeros referente ao jogo')
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Marque todos os números referentes ao jogo, agora faltam serem marcados ${maxNumber - numbersGame.length} números`,
+            })
         }
 
         dispatch(cartActions.receiveDataFromNewBEt({ numbersGame, gamePrice, gameName, color }))

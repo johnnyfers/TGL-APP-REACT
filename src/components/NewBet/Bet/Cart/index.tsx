@@ -2,6 +2,7 @@ import { EmptyCart, H2, Strong, Save, DivInsideCart, SideCartDiv, DivClassSpan, 
 import { useDispatch, useSelector } from 'react-redux'
 import { cartActions } from '../../../../store/cart-slice'
 import { gamesActions } from "../../../../store/games-slice";
+import Swal from "sweetalert2";
 
 interface RootState {
     cart: {
@@ -34,14 +35,23 @@ export default function Cart() {
     }
 
     const saveGame = (game: {}[]) => {
-        if(totalPrice < 30){
-            return alert('O valor minimo é de 30 reais')
+        if (totalPrice < 30) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'O valor mínimo para salvar um jogo é de 30 reais!',
+            })
+            return
         }
-        
-        dispatch(gamesActions.receiveDataFromCart({game}))
+
+        dispatch(gamesActions.receiveDataFromCart({ game }))
         dispatch(cartActions.clearCart())
 
-        alert('jogo salvo com sucesso')
+        Swal.fire(
+            'Jogo Salvo com Sucesso!',
+            'Seu jogo foi salvo e você pode chegar indo na página de games!',
+            'success'
+        )
     }
 
     return (

@@ -4,6 +4,8 @@ import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { authActions } from '../../../store/auth-slice'
 
+import Swal from 'sweetalert2'
+
 export default function RegisterForm() {
     const history = useHistory()
     const dispatch = useDispatch()
@@ -20,7 +22,11 @@ export default function RegisterForm() {
         let enteredPassword = passwordInputRef.current?.value
 
         if(!enteredName || !enteredEmail || !enteredPassword){
-            return alert('preencha todos os campos')
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Preencha todos os campos!',
+            })
         }
 
         dispatch(authActions.signUp({name: enteredName, email: enteredEmail, password: enteredPassword}))

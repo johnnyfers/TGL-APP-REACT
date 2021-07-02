@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { authActions } from '../../../store/auth-slice'
+import Swal from 'sweetalert2'
 
 export default function ResetForm() {
     const dispatch = useDispatch()
@@ -14,7 +15,11 @@ export default function ResetForm() {
         let enteredEmail = emailInputRef.current?.value
 
         if(!enteredEmail){
-            return alert('por favor digite o email')
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Campo de email vazio!',
+            })
         }
 
         dispatch(authActions.validateEmail({email: enteredEmail}))

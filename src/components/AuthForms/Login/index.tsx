@@ -5,6 +5,9 @@ import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../../store/auth-slice'
 
+import Swal from 'sweetalert2'
+
+
 type RootState = {
     auth: {
         isLogged: boolean
@@ -14,29 +17,37 @@ type RootState = {
 export default function LoginForm() {
     const history = useHistory()
     const dispatch = useDispatch()
-    
+
     const isLogged = useSelector((state: RootState) => state.auth.isLogged)
-    
+
     const emailInputRef = useRef<HTMLInputElement>(null)
     const passwordInputRef = useRef<HTMLInputElement>(null)
 
-    const submitHandler = (event: React.FormEvent<HTMLFormElement>)=> {
+    const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
         let enteredEmail = emailInputRef.current?.value
         let enteredPassword = passwordInputRef.current?.value
 
-        if(!enteredEmail && !enteredPassword){
-            return alert('preencha todos os campos')
+        if (!enteredEmail && !enteredPassword) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Preencha todos os campos!',
+            })
         }
 
-        dispatch(authActions.login({email: enteredEmail, password: enteredPassword}))
+        dispatch(authActions.login({ email: enteredEmail, password: enteredPassword }))
 
-        if(isLogged){
+        if (isLogged) {
             return history.push('/games')
         }
 
-        alert('email ou senha incorretos')        
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Email ou senha incorretos!',
+        })
     }
 
     return (
