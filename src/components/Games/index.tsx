@@ -26,6 +26,7 @@ interface RootState {
 export default function GamesPage() {
     const dispatch = useDispatch()
     const [items, setItems] = useState([])
+    const [buttonActive, setButtonActive] = useState('')
 
     const gameItems: {}[] = useSelector((state: RootState) => state.games.cartItem)
     const cartItemFiltered: {}[] = useSelector((state: RootState) => state.games.cartItemFiltered)
@@ -39,6 +40,7 @@ export default function GamesPage() {
     }, [])
 
     const filterGames = (gameType: string) => {
+        setButtonActive(gameType)
         dispatch(gamesActions.filterGames({ gameType }))
     }
 
@@ -51,7 +53,12 @@ export default function GamesPage() {
                         <Span>filters</Span>
                         <div>
                             {items && items.map((item: ItemTypes, index: number) =>
-                                <SelectGame onClick={(): void => filterGames(item.type)} key={index} color={item.color} >{item.type}</SelectGame>
+                                <SelectGame
+                                    background={(buttonActive === item.type) ? item.color : 'white'} color={(buttonActive !== item.type) ? item.color : 'white'}
+                                    onClick={(): void => filterGames(item.type)}
+                                    key={index} >
+                                    {item.type}
+                                </SelectGame>
                             )}
                         </div>
                     </DivHelper>
@@ -86,7 +93,7 @@ export default function GamesPage() {
                                 </Li>
                                 <Li color={item2.color}>{item2.type}</Li>
                             </UlGameItem>)
-                        )
+                    )
                     }
                 </div>
             </CardGame>

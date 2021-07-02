@@ -14,8 +14,10 @@ export const Numbers = styles.div`
     width: 100%;
     margin-bottom: 20px;
 `
+//
 export const SelectGame = styles.button`
     border: 3px solid ${props => props.color};
+    background: ${props => props.background};
     border-radius: 20px;
     padding: 10px 30px 10px 30px;
     font-weight: 900;
@@ -28,6 +30,12 @@ export const SelectGame = styles.button`
         color: white;
         transition: 0.3s;
     }
+
+    &:active {
+        background: ${props => props.color};
+        color: white;
+        transition: 0.3s;
+    } 
 
     @media (max-width: 500px){
         align-self: center;

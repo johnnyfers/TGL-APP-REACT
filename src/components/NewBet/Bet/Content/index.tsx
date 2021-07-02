@@ -6,6 +6,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { newbetActions } from '../../../../store/newbet-slice'
 import { cartActions } from '../../../../store/cart-slice'
 
+declare module 'react' {
+    interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+      // extends React's HTMLAttributes
+      background?: string;
+    }
+  }
+
 type ItemTypes = {
     type: string
     description: string
@@ -121,7 +128,7 @@ export default function NewBetContent() {
 
             <div>
                 {items && items.map((item: ItemTypes, index: number) =>
-                    <SelectGame key={index} onClick={() => gameHandler(index)} color={item.color} >{item.type}</SelectGame>
+                    <SelectGame key={index} onClick={() => gameHandler(index)} background={(gamePrice === item.price) ? item.color : 'white'}  color={(gamePrice !== item.price) ? item.color : 'white'} >{item.type}</SelectGame>
                 )}
             </div>
 
