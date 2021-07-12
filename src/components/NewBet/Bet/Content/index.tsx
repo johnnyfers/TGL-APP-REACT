@@ -1,6 +1,7 @@
 import BetButtons from './Buttons'
 import { H1, Strong, Numbers, SelectGame, NumberButtons } from './styles'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { newbetActions } from '../../../../store/newbet-slice'
@@ -9,10 +10,9 @@ import Swal from 'sweetalert2'
 
 declare module 'react' {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-      // extends React's HTMLAttributes
-      background?: string;
+        background?: string;
     }
-  }
+}
 
 type ItemTypes = {
     type: string
@@ -41,23 +41,18 @@ export default function NewBetContent() {
 
     const dispatch = useDispatch()
 
-    const [isInitial, setInitial] = useState(false)
     const [gameDescription, setGameDescription] = useState('')
     const [gameName, setGameName] = useState('')
     const [gameRange, setGameRange] = useState(0)
     const [gamePrice, setGamePrice] = useState(0)
     const [gameColor, setGameColor] = useState('')
     const [gameMaxNumber, setGameMaxNumber] = useState(0)
-    const [gameMinCartValue, setGameMinCartValue] = useState(0)
     const [items, setItems] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3005/types')
-            .then(res => res.json())
-            .then(data => {
-                setItems(data)
-            })
-            setInitial(true)
+        axios
+            .get('http://127.0.0.1:8000/games')
+            .then((res) => setItems(res.data))
     }, [dispatch])
 
     const clearGame = () => {
@@ -80,8 +75,7 @@ export default function NewBetContent() {
         setGameRange(items[index]['range'])
         setGamePrice(items[index]['price'])
         setGameColor(items[index]['color'])
-        setGameMinCartValue(items[index]['min-cart-value'])
-        setGameMaxNumber(items[index]['max-number'])
+        setGameMaxNumber(items[index]['max_number'])
     }
 
     const selectButtonHandler = (value: number, maxNumber: number, gamePrice: number, gameName: string, gameColor: string) => {
@@ -119,12 +113,13 @@ export default function NewBetContent() {
 
         clearGame()
     }
-    
-    useEffect(()=>{
-        if(items.length){
+
+    useEffect(() => {
+        if (items.length) {
             gameHandler(0)
         }
-    },[items])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [items])
 
     return (
         <>
@@ -133,7 +128,7 @@ export default function NewBetContent() {
 
             <div>
                 {items && items.map((item: ItemTypes, index: number) =>
-                    <SelectGame key={index} onClick={() => gameHandler(index)} background={(gamePrice === item.price) ? item.color : 'white'}  color={(gamePrice !== item.price) ? item.color : 'white'} >{item.type}</SelectGame>
+                    <SelectGame key={index} onClick={() => gameHandler(index)} background={(gamePrice === item.price) ? item.color : 'white'} color={(gamePrice !== item.price) ? item.color : 'white'} >{item.type}</SelectGame>
                 )}
             </div>
 
@@ -144,7 +139,11 @@ export default function NewBetContent() {
                 {items && buttons()}
             </Numbers>
 
-            <BetButtons onAddToCart={() => addToCart(myItems, gamePrice, gameName, gameColor, gameMaxNumber)} onCompleteGame={() => completeGame(gameMaxNumber, gameRange)} onClearGame={clearGame} />
+            <BetButtons
+                onAddToCart={() => addToCart(myItems, gamePrice, gameName, gameColor, gameMaxNumber)}
+                onCompleteGame={() => completeGame(gameMaxNumber, gameRange)}
+                onClearGame={clearGame}
+            />
         </>
     )
 }

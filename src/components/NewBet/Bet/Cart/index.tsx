@@ -61,7 +61,7 @@ export default function Cart() {
             <div>
                 {cartItem.map((item: {
                     id: string
-                    items: number[]
+                    items: number[] | string
                     price: number
                     type: string
                     color: string
@@ -72,7 +72,7 @@ export default function Cart() {
                         </SpanDelete>
 
                         <SideCartDiv color={item.color}>
-                            <div>{item.items.join(', ')}</div>
+                            <div>{item.items}</div>
                             <DivClassSpan>
                                 <SpanNameGame color={item.color}>{item.type}</SpanNameGame>
                                 <span>{item.price.toFixed(2).replace('.', ',')}</span>

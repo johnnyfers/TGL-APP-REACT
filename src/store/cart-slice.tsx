@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 type ItemsType = {
     cartItem: {
         id: string
-        items: number[]
+        items: number[] | string
         price: number
         type: string
         color: string
@@ -36,7 +36,7 @@ const cartSlice = createSlice({
 
             state.cartItem.push({
                 id: id,
-                items: numbersGame,
+                items: numbersGame.toString(),
                 price: price,
                 type: name,
                 color: color,

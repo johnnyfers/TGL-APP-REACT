@@ -5,6 +5,7 @@ import { SelectGame } from "../NewBet/Bet/Content/styles";
 import Layout from "../UI/Layout";
 import { Li, SpanInsideLi, UlGameItem, RecentGames, CardGame, Span, DivHelper } from "./styles";
 import { gamesActions } from '../../store/games-slice'
+import axios from 'axios'
 
 type ItemTypes = {
     type: string
@@ -32,10 +33,10 @@ export default function GamesPage() {
     const cartItemFiltered: {}[] = useSelector((state: RootState) => state.games.cartItemFiltered)
 
     useEffect(() => {
-        fetch('http://localhost:3005/types')
-            .then(res => res.json())
-            .then(data => {
-                setItems(data)
+        axios
+            .get('http://localhost:8000/games')
+            .then(res => {
+                setItems(res.data)
             })
     }, [])
 

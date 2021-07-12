@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from 'axios'
 import Swal from "sweetalert2";
 
 type LoginTypes = {
@@ -7,7 +8,7 @@ type LoginTypes = {
 }
 
 const initialState: LoginTypes = {
-    users: [{email: localStorage.getItem('email'), password: localStorage.getItem('password')}],
+    users: [{ email: localStorage.getItem('email'), password: localStorage.getItem('password') }],
     isLogged: false
 }
 
@@ -19,6 +20,13 @@ const authSlice = createSlice({
             let name: string = action.payload.name
             let password: string = action.payload.password
             let email: string = action.payload.email
+
+            axios.post('http://localhost:8000/users', {
+                    name,
+                    password,
+                    email,
+                    password_confirmation: password
+                })
 
             state.users.push({ name, password, email })
 
@@ -33,7 +41,7 @@ const authSlice = createSlice({
             let password: string = action.payload.password
             let email: string = action.payload.email
 
-            if(localStorage.getItem('email') === email && localStorage.getItem('password') === password) {
+            if (localStorage.getItem('email') === email && localStorage.getItem('password') === password) {
                 state.isLogged = true
             }
         },
@@ -48,13 +56,13 @@ const authSlice = createSlice({
         validateEmail: (state, action) => {
             let email: string = action.payload.email
 
-            if(email === localStorage.getItem('email')){
+            if (email === localStorage.getItem('email')) {
                 Swal.fire(
                     'Senha redefinida!',
                     'Sua senha foi redefinida',
                     'success'
-                  )
-            } else{
+                )
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
