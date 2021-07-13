@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 
 type RootState = {
   auth: {
-    isLogged: boolean
+    isLogged: string | null
   }
 }
 

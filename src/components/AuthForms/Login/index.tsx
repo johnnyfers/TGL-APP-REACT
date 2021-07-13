@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 
 type RootState = {
     auth: {
-        isLogged: boolean
+        isLogged: string | null
     }
 }
 
@@ -40,14 +40,13 @@ export default function LoginForm() {
         dispatch(authActions.login({ email: enteredEmail, password: enteredPassword }))
 
         if (isLogged) {
+            Swal.fire(
+                'Logged!!!!',
+                'You are Logged so be ready to bet!!!',
+                'success'
+            )
             return history.push('/games')
         }
-
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Email ou senha incorretos!',
-        })
     }
 
     return (

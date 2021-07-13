@@ -1,14 +1,23 @@
 import { Section, HelperDiv, Form, Input, InputButton, BackButton } from '../../UI/Auth/index'
 import { Link, useHistory } from 'react-router-dom'
 import { useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../../store/auth-slice'
 
 import Swal from 'sweetalert2'
 
+
+type RootState = {
+    auth: {
+        error: boolean
+    }
+}
+
 export default function RegisterForm() {
     const history = useHistory()
     const dispatch = useDispatch()
+
+    const error = useSelector((state: RootState) => state.auth.error)
 
     const nameInputRef = useRef<HTMLInputElement>(null)
     const emailInputRef = useRef<HTMLInputElement>(null)
@@ -21,7 +30,7 @@ export default function RegisterForm() {
         let enteredEmail = emailInputRef.current?.value
         let enteredPassword = passwordInputRef.current?.value
 
-        if(!enteredName || !enteredEmail || !enteredPassword){
+        if (!enteredName || !enteredEmail || !enteredPassword) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -29,9 +38,7 @@ export default function RegisterForm() {
             })
         }
 
-        dispatch(authActions.signUp({name: enteredName, email: enteredEmail, password: enteredPassword}))
-       
-        history.push('/newbet')
+        dispatch(authActions.signUp({ name: enteredName, email: enteredEmail, password: enteredPassword }))
     }
 
     return (

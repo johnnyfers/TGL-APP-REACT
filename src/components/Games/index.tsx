@@ -78,7 +78,7 @@ export default function GamesPage() {
                     {gameItems && cartItemFiltered.length <= 0 && gameItems.map((item: any) =>
                         item.game.map((item: any, index: number) =>
                             <UlGameItem key={index} color={item.color}>
-                                <Li>{item.items.join(', ')}</Li>
+                                <Li>{item.items}</Li>
                                 <Li><SpanInsideLi>{item.dateString}</SpanInsideLi> <SpanInsideLi> - (R${item.price.toFixed(2).replace('.', ',')})</SpanInsideLi></Li>
                                 <Li color={item.color}>{item.type}</Li>
                             </UlGameItem>
@@ -87,7 +87,7 @@ export default function GamesPage() {
                     {cartItemFiltered.length > 0 && cartItemFiltered.map((item: any) =>
                         item.map((item2: any, index: number) =>
                             <UlGameItem key={index} color={item2.color}>
-                                <Li>{item2.items.join(', ')}</Li>
+                                <Li>{item2.items}</Li>
                                 <Li>
                                     <SpanInsideLi>{item2.dateString}</SpanInsideLi>
                                     <SpanInsideLi> - (R${item2.price.toFixed(2).replace('.', ',')})</SpanInsideLi>
