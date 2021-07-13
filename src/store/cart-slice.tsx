@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 type ItemsType = {
     cartItem: {
-        id: string
-        items: number[] | string
-        price: number
+        game_id: number,
+        idKey: string
+        numbers: number[] | string
+        total_price: number
         type: string
         color: string
-        dateString: string
+        date_string: string
     }[],
     totalPrice: number
 }
@@ -26,34 +28,36 @@ const cartSlice = createSlice({
             const price: number = action.payload.gamePrice
             const name: string = action.payload.gameName
             const color: string = action.payload.color
+            const gameId: number = action.payload.gameId
 
             let id = Math.random().toString()
-            
+
             let date = new Date();
-            let dateString = date.getDate() +  "/0" + (date.getMonth() + 1) + "/" + date.getFullYear();
+            let dateString = date.getDate() + "/0" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
             state.totalPrice += price
 
             state.cartItem.push({
-                id: id,
-                items: numbersGame.toString(),
-                price: price,
+                game_id: gameId,
+                idKey: id,
+                numbers: numbersGame.toString(),
+                total_price: price,
                 type: name,
                 color: color,
-                dateString: dateString
+                date_string: dateString
             })
         },
 
         deleteItemFromCart(state, action) {
-            const id = action.payload.id
-            const price = action.payload.price
+            const id = action.payload.idKey
+            const price = action.payload.total_price
 
             state.totalPrice -= price
 
-            state.cartItem = state.cartItem.filter(item => item.id !== id)
+            state.cartItem = state.cartItem.filter(item => item.idKey !== id)
         },
 
-        clearCart(state){
+        clearCart(state) {
             state.totalPrice = 0
             state.cartItem = []
         }

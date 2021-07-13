@@ -33,7 +33,7 @@ export default function LoginForm() {
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Preencha todos os campos!',
+                text: 'Fill all of the fields!',
             })
         }
 
@@ -45,7 +45,8 @@ export default function LoginForm() {
                 'You are Logged so be ready to bet!!!',
                 'success'
             )
-            return history.push('/games')
+
+            history.push('/games')
         }
     }
 

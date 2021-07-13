@@ -9,6 +9,7 @@ import './global.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from './store/auth-slice';
 import { useEffect } from 'react';
+import Recovery from './pages/Recovery';
 
 type RootState = {
   auth: {
@@ -46,6 +47,10 @@ function App() {
 
       <Route path='/reset'>
         <Reset />
+      </Route>
+
+      <Route path='/recover'>
+        <Recovery />
       </Route>
 
       <Route path='/register'>

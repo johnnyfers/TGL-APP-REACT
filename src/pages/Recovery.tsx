@@ -1,13 +1,15 @@
 import Apresentation from "../components/AuthForms/Apresentation";
-import ResetForm from "../components/AuthForms/Reset";
+import RecoveryForm from "../components/AuthForms/Recovery";
 import { Container } from "../components/UI/Auth";
 
-export default function Reset() {
+export default function Recovery() {
 
     return (
+        
         <Container>
-            <Apresentation />
-            <ResetForm></ResetForm>
+            <Apresentation/>
+            <RecoveryForm></RecoveryForm>
         </Container>
     )
+
 }

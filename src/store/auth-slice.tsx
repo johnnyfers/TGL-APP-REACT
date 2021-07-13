@@ -50,7 +50,6 @@ const authSlice = createSlice({
         },
 
         login: (state, action) => {
-            state.isLogged = null
             let password: string = action.payload.password
             let email: string = action.payload.email
 
@@ -62,6 +61,7 @@ const authSlice = createSlice({
                     localStorage.setItem('token', res.data.token)
                 })
                 .catch(err => {
+                    localStorage.removeItem('token')
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -98,6 +98,31 @@ const authSlice = createSlice({
             Swal.fire(
                 'Password Reseting!',
                 'Check your email and follow the instructions to recover your password',
+                'success'
+            )
+        },
+
+        recoverPassword(state, action) {
+            let token: string = action.payload.token
+            let password: string = action.payload.password
+            let password_confirmation: string = action.payload.passwordConfirmation
+
+            axios.put('http://localhost:8000/reset', {
+                token,
+                password,
+                password_confirmation
+            }).catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err,
+                })
+                return
+            })
+
+            Swal.fire(
+                'Password Recoreved!',
+                '<a style="color: none;" href="http://localhost:3000/login">Click Here to log in with your new password</a>',
                 'success'
             )
         }

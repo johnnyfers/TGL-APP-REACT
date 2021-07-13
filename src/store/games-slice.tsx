@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 type ItemsType = {
     cartItem: {}[],
@@ -16,17 +18,28 @@ const gamesSlice = createSlice({
     reducers: {
         receiveDataFromCart(state, action) {
             const game: {}[] = action.payload.game
-            
-            state.cartItem.push({game})
+
+            const config = {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            };
+
+            axios.post(
+                'http://localhost:8000/bets', {
+                bets: game
+            },
+                config
+            )
+
+            state.cartItem.push({ game })
         },
-        
-        filterGames(state, action){
+
+        filterGames(state, action) {
             const gameType: string = action.payload.gameType
 
-            state.cartItemFiltered = state.cartItem.map((item: any)=> item.game.filter((gameSelected: any)=> gameSelected.type === gameType))
+            state.cartItemFiltered = state.cartItem.map((item: any) => item.game.filter((gameSelected: any) => gameSelected.type === gameType))
         },
 
-        clearFilter(state){
+        clearFilter(state) {
             state.cartItemFiltered = []
         }
     }

@@ -47,6 +47,7 @@ export default function NewBetContent() {
     const [gamePrice, setGamePrice] = useState(0)
     const [gameColor, setGameColor] = useState('')
     const [gameMaxNumber, setGameMaxNumber] = useState(0)
+    const [gameId, setGameId] = useState(0)
     const [items, setItems] = useState([])
 
     useEffect(() => {
@@ -70,6 +71,7 @@ export default function NewBetContent() {
     const gameHandler = (index: number) => {
         clearGame()
 
+        setGameId(items[index]['id'])
         setGameName(items[index]['type'])
         setGameDescription(items[index]['description'])
         setGameRange(items[index]['range'])
@@ -100,7 +102,7 @@ export default function NewBetContent() {
         return myArray
     }
 
-    const addToCart = (numbersGame: number[], gamePrice: number, gameName: string, color: string, maxNumber: number) => {
+    const addToCart = (numbersGame: number[], gamePrice: number, gameName: string, color: string, maxNumber: number, gameId: number) => {
         if (numbersGame.length !== maxNumber) {
             return Swal.fire({
                 icon: 'error',
@@ -109,7 +111,7 @@ export default function NewBetContent() {
             })
         }
 
-        dispatch(cartActions.receiveDataFromNewBEt({ numbersGame, gamePrice, gameName, color }))
+        dispatch(cartActions.receiveDataFromNewBEt({ numbersGame, gamePrice, gameName, color, gameId }))
 
         clearGame()
     }
@@ -140,7 +142,7 @@ export default function NewBetContent() {
             </Numbers>
 
             <BetButtons
-                onAddToCart={() => addToCart(myItems, gamePrice, gameName, gameColor, gameMaxNumber)}
+                onAddToCart={() => addToCart(myItems, gamePrice, gameName, gameColor, gameMaxNumber, gameId)}
                 onCompleteGame={() => completeGame(gameMaxNumber, gameRange)}
                 onClearGame={clearGame}
             />

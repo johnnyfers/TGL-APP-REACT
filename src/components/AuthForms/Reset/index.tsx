@@ -18,11 +18,13 @@ export default function ResetForm() {
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Campo de email vazio!',
+                text: 'Fill the empty field!',
             })
         }
 
         dispatch(authActions.validateEmail({email: enteredEmail}))
+    
+        emailInputRef!.current!.value = ''
     }
 
     return (

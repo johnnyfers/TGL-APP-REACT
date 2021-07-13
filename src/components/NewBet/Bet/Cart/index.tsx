@@ -7,9 +7,10 @@ import Swal from "sweetalert2";
 interface RootState {
     cart: {
         cartItem: {
-            id: string
-            items: number[]
-            price: number
+            game_id: number,
+            idKey: string
+            numbers: number[] | string
+            total_price: number
             type: string
             color: string
         }[],
@@ -21,17 +22,18 @@ export default function Cart() {
     const dispatch = useDispatch()
 
     let cartItem: {
-        id: string
-        items: number[]
-        price: number
+        game_id: number,
+        idKey: string
+        numbers: number[] | string
+        total_price: number
         type: string
         color: string
     }[] = useSelector((state: RootState) => state.cart.cartItem)
 
     let totalPrice: number = useSelector((state: RootState) => state.cart.totalPrice)
 
-    const deleteRow = (id: string, price: number) => {
-        dispatch(cartActions.deleteItemFromCart({ id, price }))
+    const deleteRow = (idKey: string, total_price: number) => {
+        dispatch(cartActions.deleteItemFromCart({ idKey, total_price }))
     }
 
     const saveGame = (game: {}[]) => {
@@ -60,22 +62,23 @@ export default function Cart() {
 
             <div>
                 {cartItem.map((item: {
-                    id: string
-                    items: number[] | string
-                    price: number
+                    game_id: number
+                    idKey: string
+                    numbers: number[] | string
+                    total_price: number
                     type: string
                     color: string
                 }) =>
                     <DivInsideCart key={Math.random().toString()}>
-                        <SpanDelete onClick={(): void => deleteRow(item.id, item.price)}>
+                        <SpanDelete onClick={(): void => deleteRow(item.idKey, item.total_price)}>
                             <img alt='trash' src="https://image.flaticon.com/icons/png/512/2782/2782872.png" width="20" height="20" />
                         </SpanDelete>
 
                         <SideCartDiv color={item.color}>
-                            <div>{item.items}</div>
+                            <div>{item.numbers}</div>
                             <DivClassSpan>
                                 <SpanNameGame color={item.color}>{item.type}</SpanNameGame>
-                                <span>{item.price.toFixed(2).replace('.', ',')}</span>
+                                <span>{item.total_price.toFixed(2).replace('.', ',')}</span>
                             </DivClassSpan>
                         </SideCartDiv>
                     </DivInsideCart>)
