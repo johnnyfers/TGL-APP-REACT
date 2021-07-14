@@ -24,3 +24,7 @@ export const ButtonsDiv = styles.div`
     justify-content: space-between;
 
 `
+export const Span = styles.span`
+    font-size: 1.5rem;
+    font-weight: bold;
+`
