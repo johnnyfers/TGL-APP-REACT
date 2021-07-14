@@ -67,11 +67,9 @@ const authSlice = createSlice({
                         title: 'Oops...',
                         text: 'Email or Password are wrong',
                     })
-                    return
                 })
 
             state.isLogged = localStorage.getItem('token')
-
         },
 
         logout: (state) => {
@@ -86,20 +84,21 @@ const authSlice = createSlice({
             axios.post('http://localhost:8000/reset', {
                 email
             })
+                .then((res) => {
+                    Swal.fire(
+                        'Password Reseting!',
+                        'Check your email and follow the instructions to recover your password',
+                        'success'
+                    )
+                })
                 .catch(err => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: err,
                     })
-                    return
                 })
 
-            Swal.fire(
-                'Password Reseting!',
-                'Check your email and follow the instructions to recover your password',
-                'success'
-            )
         },
 
         recoverPassword(state, action) {
@@ -111,20 +110,21 @@ const authSlice = createSlice({
                 token,
                 password,
                 password_confirmation
-            }).catch((err) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: err,
-                })
-                return
             })
-
-            Swal.fire(
-                'Password Recoreved!',
-                '<a style="color: none;" href="http://localhost:3000/login">Click Here to log in with your new password</a>',
-                'success'
-            )
+                .then((res) => {
+                    Swal.fire(
+                        'Password Recoreved!',
+                        '<a style="color: none;" href="http://localhost:3000/login">Click Here to log in with your new password</a>',
+                        'success'
+                    )
+                })
+                .catch((err) => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: err,
+                    })
+                })
         }
     }
 })

@@ -27,10 +27,6 @@ export default function RecoveryForm() {
         }
 
         dispatch(authActions.recoverPassword({token, password, passwordConfirmation}))
-    
-        tokenInputRef!.current!.value = ''
-        passwordInputRef!.current!.value = ''
-        passwordConfirmationInputRef!.current!.value = ''
     }
 
     return (

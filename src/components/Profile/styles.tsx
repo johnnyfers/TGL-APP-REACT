@@ -20,11 +20,11 @@ export const Card1 = styles.section`
 `
 
 export const Card2 = styles.section`
-    background-color: blue;
     width: 70%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    padding-left: 7rem;
 
     @media (max-width: 500px){
         text-align: center;
