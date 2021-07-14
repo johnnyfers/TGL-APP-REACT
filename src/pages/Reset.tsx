@@ -3,7 +3,6 @@ import ResetForm from "../components/AuthForms/Reset";
 import { Container } from "../components/UI/Auth";
 
 export default function Reset() {
-
     return (
         <Container>
             <Apresentation />

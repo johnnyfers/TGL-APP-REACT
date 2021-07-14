@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from './store/auth-slice';
 import { useEffect } from 'react';
 import Recovery from './pages/Recovery';
+import Profile from './pages/Profile';
 
 type RootState = {
   auth: {
@@ -59,6 +60,10 @@ function App() {
 
       {isLogged && <Route path='/games'>
         <Games />
+      </Route>}
+
+      {isLogged && <Route path='/profile'>
+        <Profile />
       </Route>}
 
       {isLogged && <Route path='/newbet'>

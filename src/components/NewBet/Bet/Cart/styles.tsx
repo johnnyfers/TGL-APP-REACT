@@ -10,6 +10,10 @@ export const H2 = styles.h2`
 export const Strong = styles.strong`
     color: rgb(90, 86, 86);
 `
+export const Div = styles.div`
+    max-height: 22rem;
+    overflow-y: auto;
+`
 
 export const Save = styles.div`
     background-color: rgba(218, 205, 205, 0.555);

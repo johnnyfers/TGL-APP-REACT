@@ -1,4 +1,16 @@
-import { EmptyCart, H2, Strong, Save, DivInsideCart, SideCartDiv, DivClassSpan, SpanNameGame, SpanDelete } from "./styles";
+import {
+    EmptyCart,
+    H2,
+    Strong,
+    Save,
+    DivInsideCart,
+    SideCartDiv,
+    DivClassSpan,
+    SpanNameGame,
+    SpanDelete,
+    Div
+} from "./styles";
+
 import { useDispatch, useSelector } from 'react-redux'
 import { cartActions } from '../../../../store/cart-slice'
 import { gamesActions } from "../../../../store/games-slice";
@@ -60,7 +72,7 @@ export default function Cart() {
         <>
             <h2>CART</h2>
 
-            <div>
+            <Div>
                 {cartItem.map((item: {
                     game_id: number
                     idKey: string
@@ -83,7 +95,7 @@ export default function Cart() {
                         </SideCartDiv>
                     </DivInsideCart>)
                 }
-            </div>
+            </Div>
 
             <EmptyCart>
                 {cartItem.length < 1 && 'Carrinho vazio'}

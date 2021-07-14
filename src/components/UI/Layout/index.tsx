@@ -5,8 +5,8 @@ const Layout = styles.div`
     display: flex;
     justify-content: space-around;
     box-sizing: border-box;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 6.5rem;
+    padding-right: 6.5rem;
 
     @media (max-width: 500px){
         margin: 0;
