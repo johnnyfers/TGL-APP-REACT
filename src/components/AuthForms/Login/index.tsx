@@ -38,16 +38,6 @@ export default function LoginForm() {
         }
 
         dispatch(authActions.login({ email: enteredEmail, password: enteredPassword }))
-
-        if (isLogged) {
-            Swal.fire(
-                'Logged!!!!',
-                'You are Logged so be ready to bet!!!',
-                'success'
-            )
-
-            history.push('/games')
-        }
     }
 
     return (

@@ -26,7 +26,7 @@ export default function GamesList() {
 
     useEffect(() => {
         axios.get(
-            `http://localhost:8000/bets?page=${page}`,
+            `http://localhost:8000/bets?page=${page}&listNumber=6`,
             config
         )
             .then(response => {

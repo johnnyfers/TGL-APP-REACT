@@ -1,20 +1,25 @@
 import { Section, HelperDiv, Form, Input, InputButton, BackButton } from '../../UI/Auth/index'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { authActions } from '../../../store/auth-slice'
 import Swal from 'sweetalert2'
 
 export default function ResetForm() {
+    const history = useHistory()
     const dispatch = useDispatch()
     const emailInputRef = useRef<HTMLInputElement>(null)
+
+    const goBack = () => {
+        history.goBack()
+    }
 
     const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
         let enteredEmail = emailInputRef.current?.value
 
-        if(!enteredEmail){
+        if (!enteredEmail) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -22,9 +27,7 @@ export default function ResetForm() {
             })
         }
 
-        dispatch(authActions.validateEmail({email: enteredEmail}))
-    
-        emailInputRef!.current!.value = ''
+        dispatch(authActions.validateEmail({ email: enteredEmail }))
     }
 
     return (
@@ -42,12 +45,9 @@ export default function ResetForm() {
                 <InputButton><i>Send Link</i></InputButton>
             </Form>
 
-            
-            <Link style={{ textDecoration: 'none' }} to='/login'>
-                <BackButton>
-                    <i>Back</i>
-                </BackButton>
-            </Link>
+            <BackButton onClick={(): void => goBack()}>
+                <i>Back</i>
+            </BackButton>
 
         </Section>)
 }

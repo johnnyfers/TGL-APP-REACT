@@ -54,11 +54,5 @@ export default function RecoveryForm() {
                 <InputButton><i>Recover Password</i></InputButton>
             </Form>
 
-            <Link style={{ textDecoration: 'none' }} to='/login'>
-                <BackButton>
-                    <i>Back</i>
-                </BackButton>
-            </Link>
-
         </Section>)
 }

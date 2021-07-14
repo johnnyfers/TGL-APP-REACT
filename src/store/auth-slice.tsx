@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
+import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 
 type LoginTypes = {
@@ -44,7 +45,7 @@ const authSlice = createSlice({
 
             Swal.fire(
                 'Account Created!',
-                '<a href="http://localhost:3000/login">Press Here to Log In</a>',
+                '<a style="color: gray; font-weight: bold" href="http://localhost:3000/login">Press Here to Log In</a>',
                 'success'
             )
         },
@@ -57,11 +58,18 @@ const authSlice = createSlice({
                 password,
                 email
             })
-                .then(res => {
+                .then((res) => {
                     localStorage.setItem('token', res.data.token)
+
+                    Swal.showLoading()
+
+                    setTimeout(() => {
+                        window.location.href = 'http://localhost:3000/profile';
+                    }, 2000)
+
                 })
                 .catch(err => {
-                    localStorage.removeItem('token')
+                    localStorage.setItem('token', '')
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -76,6 +84,8 @@ const authSlice = createSlice({
             state.isLogged = null
 
             localStorage.removeItem('token')
+
+            window.location.href = 'http://localhost:3000/login';
         },
 
         validateEmail: (state, action) => {
@@ -114,7 +124,7 @@ const authSlice = createSlice({
                 .then((res) => {
                     Swal.fire(
                         'Password Recoreved!',
-                        '<a style="color: none;" href="http://localhost:3000/login">Click Here to log in with your new password</a>',
+                        '<a style="color: gray; font-weight: bold" href="http://localhost:3000/login">Click Here to log in with your new password</a>',
                         'success'
                     )
                 })

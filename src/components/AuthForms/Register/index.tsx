@@ -23,6 +23,10 @@ export default function RegisterForm() {
     const emailInputRef = useRef<HTMLInputElement>(null)
     const passwordInputRef = useRef<HTMLInputElement>(null)
 
+    const goBack = () => {
+        history.goBack()
+    }
+
     const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
@@ -67,11 +71,10 @@ export default function RegisterForm() {
                 <InputButton><i>Register</i></InputButton>
             </Form>
 
-            <Link style={{ textDecoration: 'none' }} to='/login'>
-                <BackButton>
-                    <i>Back</i>
-                </BackButton>
-            </Link>
+            <BackButton onClick={(): void => goBack()}>
+                <i>Back</i>
+            </BackButton>
+
 
         </Section>)
 }

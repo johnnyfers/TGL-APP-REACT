@@ -25,8 +25,15 @@ interface RootState {
 }
 
 export default function GamesPage() {
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    };
+
     const dispatch = useDispatch()
+
     const [items, setItems] = useState([])
+    const [games, setGames] = useState([])
+
     const [buttonActive, setButtonActive] = useState('')
 
     const gameItems: {}[] = useSelector((state: RootState) => state.games.cartItem)
@@ -38,11 +45,21 @@ export default function GamesPage() {
             .then(res => {
                 setItems(res.data)
             })
+
+        axios
+            .get('http://localhost:8000/bets?page=1&listNumber=10',
+                config
+            )
+            .then(res => {
+                setGames(res.data.data)
+            })
+
+
     }, [])
 
-    const filterGames = (gameType: string) => {
+    const filterGames = (gameType: string, games: {}[]) => {
         setButtonActive(gameType)
-        dispatch(gamesActions.filterGames({ gameType }))
+        dispatch(gamesActions.filterGames({ gameType, games }))
     }
 
     return (
@@ -56,7 +73,7 @@ export default function GamesPage() {
                             {items && items.map((item: ItemTypes, index: number) =>
                                 <SelectGame
                                     background={(buttonActive === item.type) ? item.color : 'white'} color={(buttonActive !== item.type) ? item.color : 'white'}
-                                    onClick={(): void => filterGames(item.type)}
+                                    onClick={(): void => filterGames(item.type, games)}
                                     key={index} >
                                     {item.type}
                                 </SelectGame>
@@ -75,25 +92,19 @@ export default function GamesPage() {
                     </Link>
                 </RecentGames>
                 <div>
-                    {gameItems && cartItemFiltered.length <= 0 && gameItems.map((item: any) =>
-                        item.game.map((item: any, index: number) =>
-                            <UlGameItem key={index} color={item.color}>
-                                <Li>{item.numbers}</Li>
-                                <Li><SpanInsideLi>{item.date_string}</SpanInsideLi> <SpanInsideLi> - (R${item.total_price.toFixed(2).replace('.', ',')})</SpanInsideLi></Li>
-                                <Li color={item.color}>{item.type}</Li>
-                            </UlGameItem>
-                        )
+                    {games && cartItemFiltered.length <= 0 && games.map((game: any, index: number) =>
+                        <UlGameItem key={index} color={game.games.color}>
+                            <Li>{game.numbers}</Li>
+                            <Li><SpanInsideLi>{game.date_string}</SpanInsideLi> <SpanInsideLi> - (R${game.total_price.toFixed(2).replace('.', ',')})</SpanInsideLi></Li>
+                            <Li color={game.games.color}>{game.games.type}</Li>
+                        </UlGameItem>
                     )}
-                    {cartItemFiltered.length > 0 && cartItemFiltered.map((item: any) =>
-                        item.map((item2: any, index: number) =>
-                            <UlGameItem key={index} color={item2.color}>
-                                <Li>{item2.numbers}</Li>
-                                <Li>
-                                    <SpanInsideLi>{item2.date_string}</SpanInsideLi>
-                                    <SpanInsideLi> - (R${item2.total_price.toFixed(2).replace('.', ',')})</SpanInsideLi>
-                                </Li>
-                                <Li color={item2.color}>{item2.type}</Li>
-                            </UlGameItem>)
+                    {cartItemFiltered.length > 0 && cartItemFiltered.map((game: any, index: number) =>
+                        <UlGameItem key={index} color={game.games.color}>
+                        <Li>{game.numbers}</Li>
+                        <Li><SpanInsideLi>{game.date_string}</SpanInsideLi> <SpanInsideLi> - (R${game.total_price.toFixed(2).replace('.', ',')})</SpanInsideLi></Li>
+                        <Li color={game.games.color}>{game.games.type}</Li>
+                    </UlGameItem>
                     )
                     }
                 </div>

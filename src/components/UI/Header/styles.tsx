@@ -49,6 +49,7 @@ export const Li = styled.li`
     margin-right: 20px;
     align-items: center;
     font-weight: bold;
+    cursor: pointer;
     
     @media (max-width: 500px){
         margin-bottom: 0.3rem;
