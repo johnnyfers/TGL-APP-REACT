@@ -1,5 +1,7 @@
 # TGL - REACT - APP
 
+<img src="React App.gif"></img>
+
 
 # how to run
 
